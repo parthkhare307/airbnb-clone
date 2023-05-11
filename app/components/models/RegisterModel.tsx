@@ -10,8 +10,11 @@ import {
   useForm
 } from 'react-hook-form';
 
+
 import useRegisterModel from "@/app/hooks/useRegisterModel";
-import { error } from "console";
+import useLoginModel from "@/app/hooks/useLoginModel";
+
+
 import Model from "./model";
 import Heading from "../Heading";
 import Input from "../inputs/Input";
@@ -19,9 +22,12 @@ import {toast } from 'react-hot-toast';
 import Button from "../Button";
 import { signIn } from "next-auth/react";
 
+
 const RegisterModel = () => {
 
   const registerModel = useRegisterModel();
+  const loginModel = useLoginModel();
+
   const [ isLoading, setIsLoading] = useState(false);
 
   const {
@@ -53,6 +59,11 @@ const RegisterModel = () => {
         setIsLoading(false);
       })
   }
+
+  const toggle =useCallback(() => {
+    registerModel.onClose();
+    loginModel.onOpen();
+  },[loginModel, registerModel])
 
   const bodyContent = (
     <div className="flex flex-col gap-4">
@@ -114,7 +125,7 @@ const footerContent = (
       <div className="justify-center flex flex-row items-center gap-2">
         <div>Already have an account?</div>
         <div
-          onClick={registerModel.onClose}
+          onClick={toggle}
           className="
               text-neutral-800
               cursor-pointer

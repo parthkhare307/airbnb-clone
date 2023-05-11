@@ -10,9 +10,11 @@ import {
   useForm
 } from 'react-hook-form';
 
+
 import useRegisterModel from "@/app/hooks/useRegisterModel";
 import useLoginModel from "@/app/hooks/useLoginModel";
-import { error } from "console";
+
+
 import Model from "./model";
 import Heading from "../Heading";
 import Input from "../inputs/Input";
@@ -62,6 +64,11 @@ const LoginModel = () => {
       }
     })
   }
+
+  const toggle =useCallback(() => {
+    loginModel.onClose();
+    registerModel.onOpen();
+  },[loginModel, registerModel])
 
   const bodyContent = (
     <div className="flex flex-col gap-4">
@@ -113,16 +120,16 @@ const footerContent = (
         "
       >
       <div className="justify-center flex flex-row items-center gap-2">
-        <div>Already have an account?</div>
+        <div>First time using Airbnb?</div>
         <div
-          onClick={registerModel.onClose}
+          onClick={toggle }
           className="
               text-neutral-800
               cursor-pointer
               hover:underline
           "
         >
-          Log in
+          Create an account
         </div>
       </div>
     </div>
